@@ -32,13 +32,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-gui = ["tkinter"]
+
 dev = [
     "pytest>=6.0",
     "pytest-cov",
-    "black",
-    "flake8",
     "mypy",
+    "ruff",
 ]
 
 [project.urls]
@@ -56,24 +55,6 @@ where = ["src"]
 [tool.setuptools.package-data]
 "stservo" = ["../config/*.yaml"]
 
-[tool.black]
-line-length = 88
-target-version = ['py37']
-include = '\.pyi?$'
-extend-exclude = '''
-/(
-  # directories
-  \.eggs
-  | \.git
-  | \.hg
-  | \.mypy_cache
-  | \.tox
-  | \.venv
-  | build
-  | dist
-)/
-'''
-
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = "-ra -q --strict-markers"
@@ -81,8 +62,12 @@ testpaths = [
     "tests",
 ]
 
-[tool.mypy]
-python_version = "3.7"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
+[tool.ruff]
+line-length = 88
+target-version = "py37"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "A", "C4"]
+
+[tool.ruff.format]
+quote-style = "double"
